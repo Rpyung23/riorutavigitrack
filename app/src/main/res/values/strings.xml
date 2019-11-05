@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">riorutavigitrack</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="string_paradas">Paradas</string>
+    <string name="title_toolbar_drawer" />
+    <string name="developer">Vigitrack Cia.Ltda</string>
+</resources>

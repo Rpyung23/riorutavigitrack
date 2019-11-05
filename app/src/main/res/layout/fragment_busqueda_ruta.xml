@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.BusquedaRutaFragment">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:elevation="1dp"
+            android:background="#ffffff"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </EditText>
+                <ImageButton
+                    android:layout_gravity="end|center_vertical"
+                    android:background="@drawable/microfono"
+                    android:id="@+id/microfono_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </ImageButton>
+            </FrameLayout>
+        </LinearLayout>
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapview_rastreoT"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.google.android.gms.maps.MapView>
+        <include layout="@layout/submenu_floating">
+        </include>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
