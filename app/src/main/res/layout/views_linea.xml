@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
+    android:layout_margin="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
@@ -28,17 +29,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:textColor="@color/primary_text"
+                    android:id="@+id/text_linea_bus"
                     android:text="LINEA 1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </TextView>
                 <TextView
-                    android:text="RUTA : "
+                    android:textColor="@color/primary_text"
+                    android:id="@+id/text_hora_inicio_linea_bus"
+                    android:text="HORARIO"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </TextView>
                 <TextView
+                    android:textColor="@color/primary_text"
+                    android:id="@+id/text_hora_final_linea_bus"
                     android:text="HORARIO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <TextView
+                    android:textColor="@color/primary_text"
+                    android:id="@+id/text_frecuencia_linea_bus"
+                    android:text="FRECUENCIA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </TextView>

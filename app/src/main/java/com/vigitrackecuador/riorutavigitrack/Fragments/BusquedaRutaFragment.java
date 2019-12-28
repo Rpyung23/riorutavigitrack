@@ -6,8 +6,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,13 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.dynamic.IObjectWrapper;
+import com.google.android.gms.internal.maps.zzt;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -22,14 +32,24 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vigitrackecuador.riorutavigitrack.R;
+import com.vigitrackecuador.riorutavigitrack.Views.Gps_Linea_BusActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BusquedaRutaFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener
 {
+
     boolean fabExpanded = false;
     FloatingActionButton fabSettings;
     LinearLayout layoutFabParadas;
@@ -131,6 +151,7 @@ public class BusquedaRutaFragment extends Fragment implements OnMapReadyCallback
         googleMapRutaBusqueda=googleMap;
         MapsInitializer.initialize(getContext());
     }
+
 
     @Override
     public boolean onMyLocationButtonClick()

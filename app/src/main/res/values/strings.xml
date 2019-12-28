@@ -6,4 +6,6 @@
     <string name="string_paradas">Paradas</string>
     <string name="title_toolbar_drawer" />
     <string name="developer">Vigitrack Cia.Ltda</string>
+    <string name="lineas_fragments">Lineas de Transporte Riobamba</string>
+    <string name="title_activity_mapa_ratreo_linea">Map</string>
 </resources>
