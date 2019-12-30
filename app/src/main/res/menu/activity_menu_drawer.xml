@@ -12,4 +12,26 @@
             android:title="Rastreo de Lineas" />
     </group>
 
+    <group
+        android:id="@+id/menu_manueal_uso"
+        android:checkableBehavior="none">
+        <item
+            android:icon="@drawable/help"
+            android:title="Manual de uso" >
+        </item>
+    </group>
+
+    <group
+        android:id="@+id/menu_compartir"
+        android:checkableBehavior="none">
+        <item
+            android:icon="@drawable/whatsapp"
+            android:title="WhatsApp" >
+        </item>
+        <item
+            android:icon="@drawable/facebook"
+            android:title="Facebook" >
+        </item>
+    </group>
+
 </menu>

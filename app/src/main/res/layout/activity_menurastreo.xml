@@ -11,15 +11,25 @@
     <include layout="@layout/toolbar_menu"></include>
     <FrameLayout
         android:id="@+id/fragment_container_maps"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="20dp"
+        android:layout_height="20dp">
+
+        <Button
+            android:translationX="-20dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/btn_mostrar_menu_drawer"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/flecha"/>
     </FrameLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navi_vista"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header_menu"
         app:menu="@menu/activity_menu_drawer">
     </com.google.android.material.navigation.NavigationView>
+
 </androidx.drawerlayout.widget.DrawerLayout>

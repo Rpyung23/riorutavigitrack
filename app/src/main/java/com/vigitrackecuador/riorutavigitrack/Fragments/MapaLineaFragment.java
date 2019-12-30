@@ -1,6 +1,7 @@
 package com.vigitrackecuador.riorutavigitrack.Fragments;
 
 
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,30 +24,36 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.dynamic.IObjectWrapper;
 import com.google.android.gms.internal.maps.zzt;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.data.kml.KmlLayer;
 import com.vigitrackecuador.riorutavigitrack.R;
 import com.vigitrackecuador.riorutavigitrack.Views.Gps_Linea_BusActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MapaLineaFragment extends Fragment implements OnMapReadyCallback
+public class MapaLineaFragment extends Fragment implements OnMapReadyCallback , GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener
 {
-    Marker temp;
+    KmlLayer kmlLayer ;
     MapView mapView;
     private String codelinea;
     private RequestQueue requestQueue;
@@ -95,6 +102,10 @@ public class MapaLineaFragment extends Fragment implements OnMapReadyCallback
             @Override
             public void onResponse(JSONArray response)
             {
+                //BorrarMarket();
+                GoogleMap2.clear();
+                if (kmlLayer!=null){kmlLayer.removeLayerFromMap();}
+                kml();
                 for (int i=0;i<response.length();i++)
                 {
                     try {
@@ -103,178 +114,25 @@ public class MapaLineaFragment extends Fragment implements OnMapReadyCallback
                         //Crear un objeto LatLng para obtener las posiciones
                         LatLng oL = new LatLng(jsonObject.getDouble("UltiLatiMoni"),jsonObject.getDouble("UltiLongMoni"));
                         //Creo un objeto marcador y lo posiciono y le doy los grados
-                        marker = new Marker(new zzt()
-                        {
-                            private  LatLng latLng;
-                            private float rotation;
-                            @Override
-                            public void remove() throws RemoteException {
-
-                            }
-
-                            @Override
-                            public String getId() throws RemoteException {
-                                return null;
-                            }
-
-                            @Override
-                            public void setPosition(LatLng AlatLng) throws RemoteException
-                            {
-                                latLng = AlatLng;
-                            }
-
-                            @Override
-                            public LatLng getPosition() throws RemoteException {
-                                return latLng;
-                            }
-
-                            @Override
-                            public void setTitle(String s) throws RemoteException {
-
-                            }
-
-                            @Override
-                            public String getTitle() throws RemoteException {
-                                return null;
-                            }
-
-                            @Override
-                            public void setSnippet(String s) throws RemoteException {
-
-                            }
-
-                            @Override
-                            public String getSnippet() throws RemoteException {
-                                return null;
-                            }
-
-                            @Override
-                            public void setDraggable(boolean b) throws RemoteException {
-
-                            }
-
-                            @Override
-                            public boolean isDraggable() throws RemoteException {
-                                return false;
-                            }
-
-                            @Override
-                            public void showInfoWindow() throws RemoteException {
-
-                            }
-
-                            @Override
-                            public void hideInfoWindow() throws RemoteException {
-
-                            }
-
-                            @Override
-                            public boolean isInfoWindowShown() throws RemoteException {
-                                return false;
-                            }
-
-                            @Override
-                            public void setVisible(boolean b) throws RemoteException {
-
-                            }
-
-                            @Override
-                            public boolean isVisible() throws RemoteException {
-                                return false;
-                            }
-
-                            @Override
-                            public boolean zzj(zzt zzt) throws RemoteException {
-                                return false;
-                            }
-
-                            @Override
-                            public int zzj() throws RemoteException {
-                                return 0;
-                            }
-
-                            @Override
-                            public void zzg(IObjectWrapper iObjectWrapper) throws RemoteException {
-
-                            }
-
-                            @Override
-                            public void setAnchor(float v, float v1) throws RemoteException {
-
-                            }
-
-                            @Override
-                            public void setFlat(boolean b) throws RemoteException {
-
-                            }
-
-                            @Override
-                            public boolean isFlat() throws RemoteException {
-                                return false;
-                            }
-
-                            @Override
-                            public void setRotation(float v) throws RemoteException {
-                                rotation = v;
-                            }
-
-                            @Override
-                            public float getRotation() throws RemoteException {
-                                return rotation;
-                            }
-
-                            @Override
-                            public void setInfoWindowAnchor(float v, float v1) throws RemoteException {
-
-                            }
-
-                            @Override
-                            public void setAlpha(float v) throws RemoteException {
-
-                            }
-
-                            @Override
-                            public float getAlpha() throws RemoteException {
-                                return 0;
-                            }
-
-                            @Override
-                            public void setZIndex(float v) throws RemoteException {
-
-                            }
-
-                            @Override
-                            public float getZIndex() throws RemoteException {
-                                return 0;
-                            }
-
-                            @Override
-                            public void zze(IObjectWrapper iObjectWrapper) throws RemoteException {
-
-                            }
-
-                            @Override
-                            public IObjectWrapper zzk() throws RemoteException {
-                                return null;
-                            }
-
-                            @Override
-                            public IBinder asBinder() {
-                                return null;
-                            }
-                        });
-                        marker.setPosition(oL);
                         int angulo = jsonObject.getInt("UltiRumbMoni");
                         float aux = Float.valueOf(angulo);
-                        marker.setRotation(aux);
-                        //agrego el objeto marcador a el ArraysList de tipo Market
-                        oM.add(marker);
+                        if (jsonObject.getInt("UltiRumbMoni")<=180)
+                        {
+                            oM.add(GoogleMap2.addMarker(new MarkerOptions().position(oL).rotation(aux)
+                                    .title("Bus N° "+jsonObject.getString("CodiVehiMoni"))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_igual_menor_180))));
+                            //Marker marker = new Marker().showInfoWindow();
+                        }else
+                        {
+                            oM.add(GoogleMap2.addMarker(new MarkerOptions().position(oL).rotation(aux)
+                                    .title("Bus N° "+jsonObject.getString("CodiVehiMoni"))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_mayor_180))));
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(getContext(), "JSONException e  : "+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                AgregarMrketsMapa();
             }
 
         }, new Response.ErrorListener() {
@@ -288,32 +146,165 @@ public class MapaLineaFragment extends Fragment implements OnMapReadyCallback
         requestQueue.add(jsonArrayRequest);
     }
 
-    private void AgregarMrketsMapa()
+    private void kml()
     {
-
-        for (int i=0;i<oM.size();i++)
+        switch (getCodelinea())
         {
-            //Toast.makeText(this, "Lat: "+oM.get(i).getPosition().latitude+" Lon: "+oM.get(i).getPosition().longitude, Toast.LENGTH_SHORT).show();
-            try
-            {
-                markerOptions = new MarkerOptions();
-                markerOptions.position(oM.get(i).getPosition());
-                if (oM.get(i).getRotation()>0 && oM.get(i).getRotation()<=180)
-                {
-                    markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_igual_menor_180)).rotation(oM.get(i).getRotation());
-                    GoogleMap2.addMarker(markerOptions);
-                }else
-                    {
-                        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_mayor_180)).rotation(oM.get(i).getRotation());
-                        GoogleMap2.addMarker(markerOptions);
-                    }
+            case "L1":
 
-            }catch (Exception e)
-            {
-                Toast.makeText(getContext(), "e : "+e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea1,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "L2":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea2,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "L3":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea3,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "L4":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea4,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "L5":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea5,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "L6":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea6,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "L7":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea7,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "L8":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea8,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "L9":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea9,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "LX":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea10,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "X1":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea11,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "X2":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea12,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "X3":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea13,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "X4":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea14,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "X5":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea15,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "X6":
+                try {
+                    kmlLayer = new KmlLayer(GoogleMap2,R.raw.capalinea16,getContext());
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+        try {
+            kmlLayer.addLayerToMap();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
         }
     }
+
     public void BorrarMarket()
     {
         Toast.makeText(getContext(), "tam : "+oM.size(), Toast.LENGTH_SHORT).show();
@@ -321,7 +312,7 @@ public class MapaLineaFragment extends Fragment implements OnMapReadyCallback
         {
             for (int i=0;i<oM.size();i++)
             {
-                oM.remove(i);
+                oM.remove(oM.get(i));
             }
             oM.clear();
         }
@@ -347,7 +338,23 @@ public class MapaLineaFragment extends Fragment implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap)
     {
         GoogleMap2 =googleMap;
-        GoogleMap2.setTrafficEnabled(true);
+        //GoogleMap2.setTrafficEnabled(true);
+        GoogleMap2.setMyLocationEnabled(true);
+        GoogleMap2.setOnMyLocationButtonClickListener(this);
+        GoogleMap2.setOnMyLocationClickListener(this);
+        LatLng oLRiobamba = new LatLng(-1.67098, -78.6471176);
+        CameraUpdate cameraUpdate= CameraUpdateFactory.newLatLngZoom(oLRiobamba,12);
+        GoogleMap2.moveCamera(cameraUpdate);
         MapsInitializer.initialize(getContext());
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        return false;
+    }
+
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+
     }
 }

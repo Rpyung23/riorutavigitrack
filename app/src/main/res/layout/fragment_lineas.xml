@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".Fragments.LineasFragment">
     <androidx.appcompat.widget.Toolbar
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:id="@+id/toolbar_linea_bus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

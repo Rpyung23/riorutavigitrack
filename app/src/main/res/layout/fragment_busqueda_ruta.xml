@@ -1,37 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.BusquedaRutaFragment">
+    tools:context=".Fragments.BusquedaRutaFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:elevation="1dp"
-            android:background="#ffffff"
-            android:layout_margin="5dp"
-            android:orientation="vertical"
+        <com.mancj.materialsearchbar.MaterialSearchBar
+            style="@style/MaterialSearchBarLight"
+            app:mt_speechMode="false"
+            app:mt_hint="Search a place"
+            app:mt_maxSuggestionsCount="10"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </EditText>
-                <ImageButton
-                    android:layout_gravity="end|center_vertical"
-                    android:background="@drawable/microfono"
-                    android:id="@+id/microfono_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </ImageButton>
-            </FrameLayout>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:id="@+id/searchBar"
+            android:layout_margin="16dp"
+            app:mt_navIconEnabled="false"
+            android:elevation="5dp"
+            android:outlineProvider="bounds"
+            app:mt_placeholder="Buscar Destino"/>
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapview_rastreoT"
             android:layout_width="match_parent"

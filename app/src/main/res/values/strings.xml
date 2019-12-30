@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">riorutavigitrack</string>
+    <string name="app_name">RioBus</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -8,4 +8,7 @@
     <string name="developer">Vigitrack Cia.Ltda</string>
     <string name="lineas_fragments">Lineas de Transporte Riobamba</string>
     <string name="title_activity_mapa_ratreo_linea">Map</string>
+    <string name="google_maps_api">AIzaSyDs5T_D-OuX1IHCOoPMsNdtcKuVtc_J1dE</string>
+    <string name="dialog_message">Buscar ruta hacia destino?</string>
+    <string name="dialog_title">Vigitrack Cia.Ltda</string>
 </resources>
